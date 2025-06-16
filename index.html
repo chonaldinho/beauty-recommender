@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>피부 시술 추천기</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f7f7;
+    }
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    select, button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4f46e5;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 2rem;
+    }
+    #result {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* 모바일 대응 */
+    @media (max-width: 480px) {
+      .container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+      select, button {
+        font-size: 0.95rem;
+        padding: 0.65rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>피부 시술 추천 받기</h2>
+    <form id="survey">
+      <label for="concern">피부 고민</label>
+      <select id="concern">
+        <option value="elasticity">탄력 저하</option>
+        <option value="acne">여드름</option>
+        <option value="pigment">색소 침착</option>
+      </select>
+
+      <label for="budget">예산</label>
+      <select id="budget">
+        <option value="low">10만원 이하</option>
+        <option value="mid">20~30만원</option>
+        <option value="high">30만원 이상</option>
+      </select>
+
+      <button type="submit">추천받기</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById("survey").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const concern = document.getElementById("concern").value;
+      const budget = document.getElementById("budget").value;
+      let recommendation = "";
+
+      if (concern === "elasticity" && budget === "low") {
+        recommendation = "💡 LDM 시술 추천 – 저렴하고 탄력 개선에 효과적입니다.";
+      } else if (concern === "elasticity" && budget === "high") {
+        recommendation = "💎 슈링크 유니버스 추천 – 고강도 리프팅 시술입니다.";
+      } else if (concern === "acne") {
+        recommendation = "🔬 아그네스 or PDT 시술 추천 – 여드름 치료에 특화.";
+      } else {
+        recommendation = "🌿 리쥬란 힐러 추천 – 피부 전반적인 회복과 탄력 개선.";
+      }
+
+      document.getElementById("result").innerText = recommendation;
+    });
+  </script>
+</body>
+</html>
