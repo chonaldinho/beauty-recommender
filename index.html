@@ -6,31 +6,33 @@
     <title>피부 시술 추천기</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gradient-to-br from-pink-50 to-purple-100 min-h-screen flex items-center justify-center">
+  <body class="bg-gradient-to-br from-pink-50 to-purple-100 min-h-screen flex items-center justify-center p-4">
     <div class="bg-white shadow-xl rounded-2xl p-6 max-w-md w-full text-center">
       <h1 class="text-2xl font-bold text-purple-600 mb-4">✨ 피부 시술 추천기 ✨</h1>
+
       <form id="survey" class="space-y-4">
+        <!-- 피부 고민 -->
         <div class="text-left">
           <label for="concern" class="block text-sm font-semibold text-gray-700">피부 고민</label>
           <select id="concern" class="w-full mt-1 p-2 rounded border border-gray-300">
             <option value="elasticity">탄력 저하</option>
+            <option value="petit">쁘띠 성형</option>
+            <option value="pigment">색소</option>
+            <option value="redness">홍조</option>
+            <option value="mole">점</option>
+            <option value="pore">모공</option>
             <option value="acne">여드름</option>
-            <option value="pigment">색소 침착</option>
+            <option value="scar">여드름 흉터</option>
           </select>
         </div>
 
-        <div class="text-left">
-          <label for="budget" class="block text-sm font-semibold text-gray-700">예산</label>
-          <select id="budget" class="w-full mt-1 p-2 rounded border border-gray-300">
-            <option value="low">10만원 이하</option>
-            <option value="mid">20~30만원</option>
-            <option value="high">30만원 이상</option>
-          </select>
-        </div>
-
-        <button type="submit" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-full w-full transition">💡 추천받기</button>
+        <!-- 추천 버튼 -->
+        <button type="submit" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-full w-full transition">
+          💡 추천받기
+        </button>
       </form>
 
+      <!-- 결과 출력 -->
       <div id="result" class="mt-6 text-lg font-semibold text-gray-800"></div>
     </div>
 
@@ -38,17 +40,35 @@
       document.getElementById("survey").addEventListener("submit", function (e) {
         e.preventDefault();
         const concern = document.getElementById("concern").value;
-        const budget = document.getElementById("budget").value;
         let recommendation = "";
 
-        if (concern === "elasticity" && budget === "low") {
-          recommendation = "💆‍♀️ LDM 시술 추천 – 저렴하고 탄력 개선에 효과적입니다.";
-        } else if (concern === "elasticity" && budget === "high") {
-          recommendation = "🏆 슈링크 유니버스 추천 – 고강도 리프팅 시술입니다.";
-        } else if (concern === "acne") {
-          recommendation = "🔬 아그네스 or PDT 시술 추천 – 여드름 치료에 특화.";
-        } else {
-          recommendation = "🌿 리쥬란 힐러 추천 – 피부 전반적인 회복과 탄력 개선.";
+        switch (concern) {
+          case "elasticity":
+            recommendation = "💆‍♀️ LDM 또는 슈링크 유니버스 추천 – 탄력 개선에 효과적입니다.";
+            break;
+          case "petit":
+            recommendation = "👃 보톡스, 필러, 윤곽주사 등 쁘띠 성형 시술을 고려해보세요.";
+            break;
+          case "pigment":
+            recommendation = "🌞 IPL, 레이저 토닝, 미백관리 추천 – 색소 침착 개선에 효과적입니다.";
+            break;
+          case "redness":
+            recommendation = "🍅 브이빔, 젠틀맥스 등 혈관 레이저로 홍조를 개선해보세요.";
+            break;
+          case "mole":
+            recommendation = "🟤 CO2 레이저 등으로 점 제거가 가능합니다.";
+            break;
+          case "pore":
+            recommendation = "🕳️ 프락셀, MTS, 스킨부스터 등 모공축소 시술을 추천합니다.";
+            break;
+          case "acne":
+            recommendation = "🔬 아그네스, PDT, 블루라이트 치료 등 여드름 개선 시술 추천.";
+            break;
+          case "scar":
+            recommendation = "🧬 피코프락셀, 인트라셀, 더마스탬프 등 여드름 흉터 개선에 적합합니다.";
+            break;
+          default:
+            recommendation = "⚠️ 피부 고민을 선택해주세요.";
         }
 
         document.getElementById("result").innerText = recommendation;
