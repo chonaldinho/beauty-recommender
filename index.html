@@ -1,78 +1,114 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>피부 시술 추천기</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-gradient-to-br from-pink-50 to-purple-100 min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white shadow-xl rounded-2xl p-6 max-w-md w-full text-center">
-      <h1 class="text-2xl font-bold text-purple-600 mb-4">✨ 피부 시술 추천기 ✨</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>피부 시술 추천기 (연령 + 고민)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white shadow-xl rounded-2xl p-6 max-w-md w-full text-center">
+    <h1 class="text-2xl font-bold text-purple-600 mb-4">✨ 피부 시술 추천기 ✨</h1>
 
-      <form id="survey" class="space-y-4">
-        <!-- 피부 고민 -->
-        <div class="text-left">
-          <label for="concern" class="block text-sm font-semibold text-gray-700">피부 고민</label>
-          <select id="concern" class="w-full mt-1 p-2 rounded border border-gray-300">
-            <option value="elasticity">탄력 저하</option>
-            <option value="petit">쁘띠 성형</option>
-            <option value="pigment">색소</option>
-            <option value="redness">홍조</option>
-            <option value="mole">점</option>
-            <option value="pore">모공</option>
-            <option value="acne">여드름</option>
-            <option value="scar">여드름 흉터</option>
-          </select>
-        </div>
+    <form id="survey" class="space-y-4 text-left">
+      <!-- 연령 선택 -->
+      <div>
+        <label for="age" class="block text-sm font-semibold text-gray-700 mb-1">연령대</label>
+        <select id="age" class="w-full p-2 rounded border border-gray-300">
+          <option value="20s">20대</option>
+          <option value="30s">30대</option>
+          <option value="40s">40대</option>
+          <option value="50s">50대</option>
+          <option value="60s">60대 이상</option>
+        </select>
+      </div>
 
-        <!-- 추천 버튼 -->
-        <button type="submit" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-full w-full transition">
-          💡 추천받기
-        </button>
-      </form>
+      <!-- 피부 고민 -->
+      <div>
+        <label for="concern" class="block text-sm font-semibold text-gray-700 mb-1">피부 고민</label>
+        <select id="concern" class="w-full p-2 rounded border border-gray-300">
+          <option value="elasticity">탄력 저하</option>
+          <option value="petit">쁘띠 성형</option>
+          <option value="pigment">색소</option>
+          <option value="redness">홍조</option>
+          <option value="mole">점</option>
+          <option value="pore">모공</option>
+          <option value="acne">여드름</option>
+          <option value="scar">여드름 흉터</option>
+        </select>
+      </div>
 
-      <!-- 결과 출력 -->
-      <div id="result" class="mt-6 text-lg font-semibold text-gray-800"></div>
-    </div>
+      <button type="submit" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-full w-full transition">
+        💡 추천받기
+      </button>
+    </form>
 
-    <script>
-      document.getElementById("survey").addEventListener("submit", function (e) {
-        e.preventDefault();
-        const concern = document.getElementById("concern").value;
-        let recommendation = "";
+    <div id="result" class="mt-6 text-lg font-semibold text-gray-800"></div>
+  </div>
 
-        switch (concern) {
-          case "elasticity":
-            recommendation = "💆‍♀️ LDM 또는 슈링크 유니버스 추천 – 탄력 개선에 효과적입니다.";
-            break;
-          case "petit":
-            recommendation = "👃 보톡스, 필러, 윤곽주사 등 쁘띠 성형 시술을 고려해보세요.";
-            break;
-          case "pigment":
-            recommendation = "🌞 IPL, 레이저 토닝, 미백관리 추천 – 색소 침착 개선에 효과적입니다.";
-            break;
-          case "redness":
-            recommendation = "🍅 브이빔, 젠틀맥스 등 혈관 레이저로 홍조를 개선해보세요.";
-            break;
-          case "mole":
-            recommendation = "🟤 CO2 레이저 등으로 점 제거가 가능합니다.";
-            break;
-          case "pore":
-            recommendation = "🕳️ 프락셀, MTS, 스킨부스터 등 모공축소 시술을 추천합니다.";
-            break;
-          case "acne":
-            recommendation = "🔬 아그네스, PDT, 블루라이트 치료 등 여드름 개선 시술 추천.";
-            break;
-          case "scar":
-            recommendation = "🧬 피코프락셀, 인트라셀, 더마스탬프 등 여드름 흉터 개선에 적합합니다.";
-            break;
-          default:
-            recommendation = "⚠️ 피부 고민을 선택해주세요.";
-        }
+  <script>
+    const recommendations = {
+      "20s": {
+        elasticity: "💆‍♀️ 20대 탄력 저하는 기본 홈케어와 함께, LDM 라이트 시술도 추천해요.",
+        petit: "👃 20대 쁘띠 성형은 보톡스, 필러 소량으로 자연스럽게 시작하세요.",
+        pigment: "🌞 색소 문제에는 저자극 미백 케어와 레이저 토닝이 좋아요.",
+        redness: "🍅 홍조가 있다면 순한 진정 케어와 브이빔 레이저를 고려하세요.",
+        mole: "🟤 점 제거는 CO2 레이저가 무난합니다.",
+        pore: "🕳️ 모공 관리는 스킨부스터와 MTS 추천해요.",
+        acne: "🔬 여드름엔 PDT 치료와 아그네스가 효과적입니다.",
+        scar: "🧬 흉터는 초기라면 더마스탬프가 적합합니다."
+      },
+      "30s": {
+        elasticity: "💆‍♀️ 30대 탄력 저하는 LDM, 슈링크와 같은 고주파 시술이 효과적입니다.",
+        petit: "👃 보톡스, 필러로 자연스러운 라인 교정 추천.",
+        pigment: "🌞 IPL과 레이저 토닝으로 색소 관리하세요.",
+        redness: "🍅 브이빔, 젠틀맥스로 홍조 개선 가능.",
+        mole: "🟤 점 제거 시 CO2 레이저가 적당합니다.",
+        pore: "🕳️ 프락셀, MTS, 스킨부스터 추천.",
+        acne: "🔬 아그네스, 블루라이트, PDT 치료 효과적.",
+        scar: "🧬 피코프락셀, 인트라셀로 흉터 치료하세요."
+      },
+      "40s": {
+        elasticity: "💆‍♀️ 40대 이상 탄력 저하는 슈링크, LDM 복합 시술 추천드립니다.",
+        petit: "👃 쁘띠 성형은 보톡스, 필러에 더해 윤곽주사도 고려해보세요.",
+        pigment: "🌞 색소 침착은 IPL과 미백 관리, 레이저 병행이 좋아요.",
+        redness: "🍅 혈관 레이저(브이빔, 젠틀맥스)와 진정 케어 병행 권장.",
+        mole: "🟤 점 제거는 CO2 레이저와 병합 시술 고려.",
+        pore: "🕳️ 모공 축소 위해 프락셀, MTS, 스킨부스터 적극 추천.",
+        acne: "🔬 여드름 치료 후 흉터 관리까지 같이 진행하세요.",
+        scar: "🧬 흉터는 피코프락셀, 인트라셀, 더마스탬프로 집중 치료."
+      },
+      "50s": {
+        elasticity: "💆‍♀️ 50대는 탄력과 주름 개선을 위해 고주파, 울쎄라 시술 추천합니다.",
+        petit: "👃 보톡스, 필러와 함께 윤곽주사, 지방분해 주사도 효과적입니다.",
+        pigment: "🌞 IPL, 레이저 토닝, 미백 관리에 집중하세요.",
+        redness: "🍅 혈관 및 진정 케어를 위한 브이빔, 젠틀맥스 권장.",
+        mole: "🟤 점 제거는 피부 상태에 따라 CO2 레이저를 신중히 선택하세요.",
+        pore: "🕳️ 프락셀과 스킨부스터, MTS 시술로 모공 축소 도움.",
+        acne: "🔬 여드름 치료 후 피부 재생 관리 필수입니다.",
+        scar: "🧬 흉터 치료는 피코프락셀, 인트라셀, 더마스탬프 복합 치료 추천."
+      },
+      "60s": {
+        elasticity: "💆‍♀️ 60대 이상은 울쎄라, 실리프팅, 고주파 복합 시술로 탄력 강화 권장.",
+        petit: "👃 자연스러운 라인 유지를 위한 보톡스, 필러 최소 시술 추천.",
+        pigment: "🌞 색소 침착 완화와 피부톤 개선을 위한 IPL, 미백 집중 관리.",
+        redness: "🍅 홍조 완화 및 혈관 관리 위한 레이저 시술과 진정 케어 병행.",
+        mole: "🟤 점 제거는 노화 피부 특성 고려해 전문 상담 후 결정하세요.",
+        pore: "🕳️ 피부 재생 및 모공 축소 위해 스킨부스터, 프락셀 추천.",
+        acne: "🔬 여드름 치료는 드물지만 흉터 관리와 피부 재생 치료 중요.",
+        scar: "🧬 흉터 개선 위해 집중적인 피코프락셀, 인트라셀 치료 필요."
+      }
+    };
 
-        document.getElementById("result").innerText = recommendation;
-      });
-    </script>
-  </body>
+    document.getElementById("survey").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const age = document.getElementById("age").value;
+      const concern = document.getElementById("concern").value;
+
+      const rec = recommendations[age]?.[concern] || "⚠️ 선택한 조합에 대한 추천이 없습니다.";
+
+      document.getElementById("result").innerText = rec;
+    });
+  </script>
+</body>
 </html>
